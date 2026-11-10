@@ -108,4 +108,4 @@ Its predictions are only for the synthetic age-based proxy and are not trained o
 python src\monitor.py --current-data data\raw\new_players.csv
 ```
 
-The report is written to `reports/monitoring_report.json`. GitHub Actions runs the pipeline, tests, monitoring, and Docker build on pushes, pull requests, manual dispatch, and a weekly schedule. It uploads the monitoring report; it does not publish an image to a container registry. Because there are no observed labels, the workflow does not claim concept-drift or real-churn performance monitoring and does not automatically retrain on an unlabelled batch.
+The report is written to `reports/monitoring_report.json`. GitHub Actions shows monitoring as its own **“Lab 12 - Feature and prediction monitoring”** step, followed by tests and a Docker build, on pushes, pull requests, manual dispatch, and a weekly schedule. It uploads the monitoring report; it does not publish an image to a container registry. Because there are no observed labels, the workflow does not claim concept-drift or real-churn performance monitoring and does not automatically retrain on an unlabelled batch.

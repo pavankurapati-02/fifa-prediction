@@ -32,8 +32,11 @@ jobs:
       - name: Generate fictional CI fixture
         run: python -m fifa_churn.create_demo_data --output "$FIFA_DATA_PATH"
 
-      - name: Run MLOps pipeline through Lab 13
-        run: python pipelines/run_all_labs.py
+      - name: Run MLOps pipeline through batch inference
+        run: python pipelines/run_all_labs.py --skip-monitor
+
+      - name: Lab 12 - Feature and prediction monitoring
+        run: python src/monitor.py --current-data "$FIFA_DATA_PATH"
 
       - name: Run tests
         run: python -m pytest -q

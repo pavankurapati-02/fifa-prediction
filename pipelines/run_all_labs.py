@@ -1,3 +1,4 @@
+import argparse
 import subprocess
 import sys
 from pathlib import Path
@@ -19,14 +20,24 @@ STAGES = [
 
 
 def main() -> None:
-    for name, script in STAGES:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--skip-monitor",
+        action="store_true",
+        help="Skip the final monitoring stage (useful when running it as a separate CI step).",
+    )
+    args = parser.parse_args()
+
+    stages = STAGES[:-1] if args.skip_monitor else STAGES
+    for name, script in stages:
         print(f"\n===== {name} =====", flush=True)
         subprocess.run(
             [sys.executable, str(ROOT / script)],
             cwd=ROOT,
             check=True,
         )
-    print("\n[SUCCESS] FIFA MLOps stages completed through Lab 13.")
+    ending = "through batch inference" if args.skip_monitor else "through Lab 13"
+    print(f"\n[SUCCESS] FIFA MLOps stages completed {ending}.")
     print("[WARNING] Churn metrics describe a synthetic age-based proxy only.")
 
 
